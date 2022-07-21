@@ -1,45 +1,128 @@
-<html>
+<!DOCTYPE html>
+
 <head>
-<title>Chapter 10</title>
-<link href='http://fonts.googleapis.com/css?family=Merriweather' rel='stylesheet' type='text/css'>
-<link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
-<link rel="stylesheet" href="css/styles.css">
+    <title>Chapter 10</title>
+    <link href='http://fonts.googleapis.com/css?family=Merriweather' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="css/styles.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 
+</head>
 
-</head>    
 <body class="tiled">
-<header>
-    <h1>Art Filters</h1>
-</header>
-<main>
-    <div id="sliderBox">
-        <form>
-           <label>Opacity: </label><p><input type="range" id="sliderOpacity" min="0" max="100" value="100" class="sliders" /> <span id="numOpacity">100</span>%</p>
-           <p><label>Saturation: </label><input type="range" id="sliderSaturation" min="1" max="300" value="100" class="sliders"/> <span id="numSaturation">100</span>%</p>
-           <p><label>Brightness: </label><input type="range" id="sliderBrightness" min="0" max="300" value="100" class="sliders" /> <span id="numBrightness">100</span>%</p>
-           <p><label>Hue Rotate: </label><input type="range" id="sliderHue" min="0" max="360" value="0" class="sliders" /> <span id="numHue">0</span>deg</p>
-           <p><label>Grayscale: </label><input type="range" id="sliderGray" min="0" max="100" value="0" class="sliders"/> <span id="numGray">0</span>%</p>
-           <p><label>Blur: </label><input type="range" id="sliderBlur" min="0" max="10" value="0" class="sliders" /> <span id="numBlur">0</span>px</p>
-           <p><button id="resetFilters">Reset</button> </p>
-        </form>    
-    </div>
-    <figure id="imgManipulated">
-        <img src="images/medium/painting1.jpg" > 
-        <figcaption>
-            <em>Still Life with Flowers in a Glass Vase</em> <br>
-            Jan Davidsz. de Heem, 1650 - 1683
-        </figcaption>
-    </figure>   
-    <div id="thumbBox">
-        <div><img src="images/small/painting1.jpg"  alt="Still Life with Flowers in a Glass Vase" title="Jan Davidsz. de Heem, 1650 - 1683"/></div>
-        <div><img src="images/small/painting2.jpg"  alt="Portrait of Alida Christina Assink" title="Jan Adam Kruseman, 1833"/></div>
-        <div><img src="images/small/painting3.jpg"  alt="Self-portrait" title="Vincent van Gogh, 1887"/></div>
-        <div><img src="images/small/painting4.jpg"  alt="William II, Prince of Orange, and his Bride, Mary Stuart" title="Anthony van Dyck, 1641"/></div>
-        <div><img src="images/small/painting5.jpg"  alt="Milkmaid" title="Johannes Vermeer, c. 1660"/></div>
-    </div>
-</main>
-<script>
+    <header>
+        <h1>Art Filters</h1>
+    </header>
+    <main>
+        <div id="sliderBox">
+            <form>
+                <p><label>Opacity: </label><input type="range" id="sliderOpacity" min="0" max="100" value="100"
+                        class="sliders" /> <span id="numOpacity">100</span>%</p>
+                <p><label>Saturation: </label><input type="range" id="sliderSaturation" min="1" max="300" value="100"
+                        class="sliders" /> <span id="numSaturation">100</span>%</p>
+                <p><label>Brightness: </label><input type="range" id="sliderBrightness" min="0" max="300" value="100"
+                        class="sliders" /> <span id="numBrightness">100</span>%</p>
+                <p><label>Hue Rotate: </label><input type="range" id="sliderHue" min="0" max="360" value="0"
+                        class="sliders" /> <span id="numHue">0</span>deg</p>
+                <p><label>Grayscale: </label><input type="range" id="sliderGray" min="0" max="100" value="0"
+                        class="sliders" /> <span id="numGray">0</span>%</p>
+                <p><label>Blur: </label><input type="range" id="sliderBlur" min="0" max="10" value="0"
+                        class="sliders" /> <span id="numBlur">0</span>px</p>
+                <p><button id="resetFilters">Reset</button> </p>
+            </form>
+        </div>
+        <figure id="imgManipulated">
+            <img src="images/medium/painting1.jpg">
+            <figcaption>
+                <em>Still Life with Flowers in a Glass Vase</em> <br>
+                Jan Davidsz. de Heem, 1650 - 1683
+            </figcaption>
+        </figure>
+        <div id="thumbBox">
+            <div><img src="images/small/painting1.jpg" alt="Still Life with Flowers in a Glass Vase"
+                    title="Jan Davidsz. de Heem, 1650 - 1683" /></div>
+            <div><img src="images/small/painting2.jpg" alt="Portrait of Alida Christina Assink"
+                    title="Jan Adam Kruseman, 1833" /></div>
+            <div><img src="images/small/painting3.jpg" alt="Self-portrait" title="Vincent van Gogh, 1887" /></div>
+            <div><img src="images/small/painting4.jpg" alt="William II, Prince of Orange, and his Bride, Mary Stuart"
+                    title="Anthony van Dyck, 1641" /></div>
+            <div><img src="images/small/painting5.jpg" alt="Milkmaid" title="Johannes Vermeer, c. 1660" /></div>
+        </div>
+    </main>
+    <script>
+        $(document).ready(function () {
+            var filterOpacity = 100, filterSaturate = 100, filterBrightness = 100, filterHue = 0, filterGray = 0, filterBlur = 0;
 
-</script>    
-</body>   
+            $('img').on('click', function () {
+                var imgPath = $(this).attr('src').replace('small', 'medium');
+                $('figure img')
+                .attr('src', imgPath)
+                .css('width', '450px')
+                .css('height', '640px');
+
+                var imgName = $(this).attr('alt');
+                var imgArtist = $(this).attr('title');
+                $('figcaption').html('<em>' + imgName + '</em> <br>' + imgArtist);
+            });
+
+
+            $('#sliderOpacity').on('mousemove', function () {
+                $('#numOpacity').html($(this).val());
+                filterOpacity = $(this).val();
+                $('#imgManipulated img').css('filter', 'opacity(' + filterOpacity + '%) brightness(' + filterBrightness + '%) saturate(' + filterSaturate + '%) hue-rotate(' + filterHue + 'deg) grayscale(' + filterGray + '%) blur(' + filterBlur + 'px)');
+                $('#imgManipulated img').css('-webkit-filter', 'opacity(' + filterOpacity + '%) brightness(' + filterBrightness + '%) saturate(' + filterSaturate + '%) hue-rotate(' + filterHue + 'deg) grayscale(' + filterGray + '%) blur(' + filterBlur + 'px)');
+
+            });
+
+            $('#sliderSaturation').on('mousemove', function () {
+                $('#numSaturation').html($(this).val());
+                filterSaturate = $(this).val();
+                $('#imgManipulated img').css('filter', 'opacity(' + filterOpacity + '%) brightness(' + filterBrightness + '%) saturate(' + filterSaturate + '%) hue-rotate(' + filterHue + 'deg) grayscale(' + filterGray + '%) blur(' + filterBlur + 'px)');
+                $('#imgManipulated img').css('-webkit-filter', 'opacity(' + filterOpacity + '%) brightness(' + filterBrightness + '%) saturate(' + filterSaturate + '%) hue-rotate(' + filterHue + 'deg) grayscale(' + filterGray + '%) blur(' + filterBlur + 'px)');
+
+            });
+
+
+            $('#sliderBrightness').on('mousemove', function () {
+                $('#numBrightness').html($(this).val());
+                filterBrightness = $(this).val();
+                $('#imgManipulated img').css('filter', 'opacity(' + filterOpacity + '%) brightness(' + filterBrightness + '%) saturate(' + filterSaturate + '%) hue-rotate(' + filterHue + 'deg) grayscale(' + filterGray + '%) blur(' + filterBlur + 'px)');
+                $('#imgManipulated img').css('-webkit-filter', 'opacity(' + filterOpacity + '%) brightness(' + filterBrightness + '%) saturate(' + filterSaturate + '%) hue-rotate(' + filterHue + 'deg) grayscale(' + filterGray + '%) blur(' + filterBlur + 'px)');
+
+            });
+
+            $('#sliderHue').on('mousemove', function () {
+                $('#numHue').html($(this).val());
+                filterHue = $(this).val();
+                $('#imgManipulated img').css('filter', 'opacity(' + filterOpacity + '%) brightness(' + filterBrightness + '%) saturate(' + filterSaturate + '%) hue-rotate(' + filterHue + 'deg) grayscale(' + filterGray + '%) blur(' + filterBlur + 'px)');
+                $('#imgManipulated img').css('-webkit-filter', 'opacity(' + filterOpacity + '%) brightness(' + filterBrightness + '%) saturate(' + filterSaturate + '%) hue-rotate(' + filterHue + 'deg) grayscale(' + filterGray + '%) blur(' + filterBlur + 'px)');
+
+            });
+
+            $('#sliderGray').on('mousemove', function () {
+                $('#numGray').html($(this).val());
+                filterGray = $(this).val();
+                $('#imgManipulated img').css('filter', 'opacity(' + filterOpacity + '%) brightness(' + filterBrightness + '%) saturate(' + filterSaturate + '%) hue-rotate(' + filterHue + 'deg) grayscale(' + filterGray + '%) blur(' + filterBlur + 'px)');
+                $('#imgManipulated img').css('-webkit-filter', 'opacity(' + filterOpacity + '%) brightness(' + filterBrightness + '%) saturate(' + filterSaturate + '%) hue-rotate(' + filterHue + 'deg) grayscale(' + filterGray + '%) blur(' + filterBlur + 'px)');
+
+            });
+
+            $('#sliderBlur').on('mousemove', function () {
+                $('#numBlur').html($(this).val());
+                filterBlur = $(this).val();
+                $('#imgManipulated img').css('filter', 'opacity(' + filterOpacity + '%) brightness(' + filterBrightness + '%) saturate(' + filterSaturate + '%) hue-rotate(' + filterHue + 'deg) grayscale(' + filterGray + '%) blur(' + filterBlur + 'px)');
+                $('#imgManipulated img').css('-webkit-filter', 'opacity(' + filterOpacity + '%) brightness(' + filterBrightness + '%) saturate(' + filterSaturate + '%) hue-rotate(' + filterHue + 'deg) grayscale(' + filterGray + '%) blur(' + filterBlur + 'px)');
+
+            });
+
+            $('#resetFilters').click(function () {
+                filterOpacity = 100, filterSaturate = 100, filterBrightness = 100, filterHue = 0, filterGray = 0, filterBlur = 0;
+                $('#imgManipulated img').css('filter', 'none');
+                $('#imgManipulated img').css('-webkit-filter', 'none');
+            });
+        });
+    </script>
+</body>
+
 </html>
